@@ -1,6 +1,7 @@
 !pip install matplotlib scikit-learn pandas -q
 
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
@@ -36,9 +37,37 @@ plt.colorbar()
 
 
 tick_marks = range(len(iris.target_names))
-plt.xticks(tick_marks, iris.target_names, rotation=45)
 plt.xticks(tick_marks, iris.target_names, rotation=90)
 plt.yticks(tick_marks, iris.target_names)
 plt.xlabel('predicted')
 plt.ylabel('true')
+plt.show()
+
+print("\nClassification Report:")
+print(classification_report(Y_test, Y_pred, target_names=iris.target_names))
+
+# Confusion matrix
+cm = confusion_matrix(Y_test, Y_pred)
+
+# Plot confusion matrix with labels
+plt.figure(figsize=(6, 5))
+plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+plt.title("Confusion Matrix")
+plt.colorbar()
+
+tick_marks = np.arange(len(iris.target_names))
+plt.xticks(tick_marks, iris.target_names, rotation=45)
+plt.yticks(tick_marks, iris.target_names)
+
+# Add values to each cell
+thresh = cm.max() / 2
+for i in range(cm.shape[0]):
+    for j in range(cm.shape[1]):
+        plt.text(j, i, str(cm[i, j]),
+                 ha="center", va="center",
+                 color="white" if cm[i, j] > thresh else "black")
+
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.tight_layout()
 plt.show()
