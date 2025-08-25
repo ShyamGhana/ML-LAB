@@ -30,3 +30,5 @@ plt.ylabel("Predicted Values")
 plt.title("Linear Regression on Diabetes Dataset")
 plt.show()
 
+r2=r2_score(y_test, y_pred)
+print("R2 Score:", r2)
