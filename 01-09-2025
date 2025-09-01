@@ -29,3 +29,26 @@ plt.figure(figsize=(12, 8))
 plot_tree(dt_model, filled=True, feature_names=iris.feature_names, class_names=iris.target_names, rounded=True)
 plt.show()
 
+nb_model=GaussianNB()
+nb_model.fit(X_train, y_train)
+nb_preds=nb_model.predict(X_test)
+
+print("\n Naive Bayes Classifier Results")
+print("Accuracy:", accuracy_score(y_test, nb_preds))
+print(classification_report(y_test, nb_preds,target_names=iris.target_names))
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+sns.heatmap(confusion_matrix(y_test, dt_preds), annot=True, fmt='d', cmap='Blues', ax=axes[0])
+axes[0].set_title('Decision Tree Confusion Matrix')
+axes[0].set_xlabel('Predicted')
+axes[0].set_ylabel('Actual')
+
+sns.heatmap(confusion_matrix(y_test, nb_preds), annot=True, fmt='d', cmap='Greens', ax=axes[1])
+axes[1].set_title('Navie Bayes Confusion Matrix')
+axes[1].set_xlabel('Predicted')
+axes[1].set_ylabel('Actual')
+
+plt.show()
+
+
+
