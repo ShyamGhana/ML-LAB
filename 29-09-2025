@@ -28,3 +28,19 @@ history = model.fit(x_train, y_train, epochs=5, batch_size=32, validation_split=
 
 test_loss, test_acc = model.evaluate(x_test, y_test)
 print('Test accuracy:', test_acc)
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+predictions = model.predict(x_test)
+plt.figure(figsize=(12, 6))
+for i in range(10):
+    idx = np.random.randint(0, len(x_test))
+    plt.subplot(2, 5, i+1)
+    plt.imshow(x_test[idx], cmap='gray')
+    plt.title(f"Pred: {np.argmax(predictions[idx])}, True: {np.argmax(y_test[idx])}")
+    plt.axis("off")
+plt.show()
+
+
+
