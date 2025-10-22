@@ -1,0 +1,49 @@
+# EXP-4(b): Support Vector Machine (SVM) – Simple and Enhanced
+
+# 1. Import Libraries
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+# 2. Load Dataset
+data = load_iris()
+X, y = data.data, data.target
+target_names = data.target_names
+
+# 3. Split Data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 4. Train SVM Model
+model = SVC(kernel='linear')
+model.fit(X_train, y_train)
+
+# 5. Predict
+y_pred = model.predict(X_test)
+
+# 6. Evaluate
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred, target_names=target_names))
+
+
+
+OUTPUT :
+
+Accuracy: 1.0
+
+Confusion Matrix:
+ [[10  0  0]
+ [ 0  9  0]
+ [ 0  0 11]]
+
+Classification Report:
+               precision    recall  f1-score   support
+
+      setosa       1.00      1.00      1.00        10
+  versicolor       1.00      1.00      1.00         9
+   virginica       1.00      1.00      1.00        11
+
+    accuracy                           1.00        30
+   macro avg       1.00      1.00      1.00        30
+weighted avg       1.00      1.00      1.00        30
