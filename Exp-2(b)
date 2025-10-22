@@ -1,0 +1,21 @@
+# 1. Import Libraries
+import pandas as pd
+from sklearn.datasets import fetch_california_housing
+
+# 2. Load Dataset
+data = fetch_california_housing(as_frame=True)
+df = data.frame
+
+# 3. Check missing values and duplicates
+print("Missing values:\n", df.isnull().sum())
+print("Number of rows before removing duplicates:", df.shape[0])
+
+# 4. Fill missing values (if any) with median
+df = df.fillna(df.median(numeric_only=True))
+
+# 5. Remove duplicates
+df = df.drop_duplicates()
+
+# 6. Check results after cleaning
+print("Number of rows after cleaning:", df.shape[0])
+print(df.head())
