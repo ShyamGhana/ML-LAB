@@ -1,0 +1,51 @@
+# 1. Import Libraries
+import tensorflow as tf
+from tensorflow.keras.datasets import cifar10
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Flatten
+from tensorflow.keras.utils import to_categorical
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 2. Load Dataset (CIFAR-10: 10 classes of small images)
+(x_train, y_train), (x_test, y_test) = cifar10.load_data()
+
+# 3. Normalize Images
+x_train, x_test = x_train / 255.0, x_test / 255.0
+
+# 4. One-hot Encode Labels
+y_train = to_categorical(y_train, 10)
+y_test = to_categorical(y_test, 10)
+
+# 5. Build Simple ANN Model
+model = Sequential([
+    Flatten(input_shape=(32, 32, 3)),   # flatten 32x32 RGB images
+    Dense(128, activation='relu'),
+    Dense(64, activation='relu'),
+    Dense(10, activation='softmax')     # 10 output classes
+])
+
+# 6. Compile Model
+model.compile(optimizer='adam',
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
+
+# 7. Train Model
+history = model.fit(x_train, y_train, epochs=5, batch_size=32, validation_split=0.2)
+
+# 8. Evaluate Model
+test_loss, test_acc = model.evaluate(x_test, y_test)
+print("Test accuracy:", test_acc)
+
+# 9. Display Sample Predictions
+predictions = model.predict(x_test)
+class_names = ['airplane','automobile','bird','cat','deer','dog','frog','horse','ship','truck']
+
+plt.figure(figsize=(12, 6))
+for i in range(10):
+    idx = np.random.randint(0, len(x_test))
+    plt.subplot(2, 5, i+1)
+    plt.imshow(x_test[idx])
+    plt.title(f"Pred: {class_names[np.argmax(predictions[idx])]}, True: {class_names[np.argmax(y_test[idx])]}")
+    plt.axis("off")
+plt.show()
