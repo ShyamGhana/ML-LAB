@@ -1,0 +1,28 @@
+# 1. Import Libraries
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+
+# 2. Load Dataset
+data = load_iris()
+X = pd.DataFrame(data.data, columns=data.feature_names)
+y = pd.Series(data.target)
+
+# 3. Split Data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 4. Train Model
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train)
+
+# 5. Predictions & Accuracy
+y_pred = model.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+
+# 6. Visualize Tree
+plt.figure(figsize=(10,6))
+plot_tree(model, filled=True, feature_names=data.feature_names, class_names=data.target_names)
+plt.show()
