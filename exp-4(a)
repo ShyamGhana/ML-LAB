@@ -19,3 +19,12 @@ model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 print("Accuracy:", accuracy_score(y_test, y_pred))
 print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+
+OUTPUT :
+
+Accuracy: 1.0
+
+Confusion Matrix:
+ [[10  0  0]
+ [ 0  9  0]
+ [ 0  0 11]]
