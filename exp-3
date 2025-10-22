@@ -26,3 +26,9 @@ print("Accuracy:", accuracy_score(y_test, y_pred))
 plt.figure(figsize=(10,6))
 plot_tree(model, filled=True, feature_names=data.feature_names, class_names=data.target_names)
 plt.show()
+
+OUTPUT :
+
+Accuracy: 1.0
+
+# complex decision tree
